@@ -1,4 +1,4 @@
-package ifpb.edu.br.main;
+package ifpb.edu.com.br.main;
 
 import ifpb.edu.com.br.usuario.Usuario;
 import ifpb.edu.com.br.usuario.UsuarioService;
@@ -9,11 +9,16 @@ import java.util.concurrent.Semaphore;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
+
 public class Controlador {
 
     private static ArrayBlockingQueue<Integer> bufferdelete;
-    private static ArrayBlockingQueue<Integer> buffersalvar;
     private static ArrayBlockingQueue<Integer> bufferatualizar;
+    final long tempo = System.currentTimeMillis();
+    
+  
+         
     
     private static Semaphore sem = new Semaphore(1);
 
@@ -25,9 +30,11 @@ public class Controlador {
     }
 
     Runnable salvar = new Runnable() {
+        
         @Override
         public void run() {
             try {
+               
                 sem.acquire();
 
                 Usuario u = new Usuario(us.IdUsuario() + 1, "teste");
@@ -71,8 +78,9 @@ public class Controlador {
             try {
                 int id = bufferdelete.take();
                 us.deletar(id);
-
-                System.out.println("deletou");
+                long tempofinal = System.currentTimeMillis();
+                long total = tempofinal - tempo;
+                System.out.println(total);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {
