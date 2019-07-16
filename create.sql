@@ -1,0 +1,1 @@
+CREATE TABLE usuario(id INTEGER, nome VARCHAR(50))
