@@ -63,6 +63,7 @@ public class UsuarioService {
         PreparedStatement stm = con.prepareStatement(sql);
         ResultSet rs = stm.executeQuery();
         int id = 0;
+        con.close();
         while (rs.next()) {
             id = rs.getInt("id");
         }
